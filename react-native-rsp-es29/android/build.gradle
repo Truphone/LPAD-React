@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+Properties properties = new Properties()
+
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def isDebug = properties.getProperty('debug.enabled')
+def projectTag = properties.getProperty('project.tag')
+def rspServerUrl = properties.getProperty('rsp.server.url')
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "RSP_SERVER_URL", rspServerUrl
+        buildConfigField "boolean", "IS_DEBUG", isDebug
+        buildConfigField "String", "TAG", projectTag
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'com.facebook.react:react-native:+'
+    compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    compile group: 'org.springframework', name: 'spring-core', version: '3.2.9.RELEASE'
+    compile group: 'net.java.dev.jna', name: 'platform', version: '3.5.0'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.truphone.lpad:lpad-sm-dp-plus-connector:1.0.2-SNAPSHOT'
+    compile project(':react-native-apdu')
+}
+  
