@@ -1,7 +1,6 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Copy
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -116,6 +115,8 @@ android {
         buildConfigField "String", "TAG", projectTag
     }
     signingConfigs {
+        release {
+        }
     }
     splits {
         abi {
